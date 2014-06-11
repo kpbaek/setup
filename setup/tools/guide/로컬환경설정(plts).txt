@@ -1,0 +1,110 @@
+<윈도우32bit 로컬개발환경(plts) guide>
+
+win32bit software - D:\dev\project\tools\win32
+
+
+1. jdk, mysql설치(default)
+
+설치경로: C:\Program Files\Java\jre7
+설치경로: C:\Program Files\MySQL
+
+
+2. apache 설치
+
+설치경로: D:\dev\Apache2.2
+
+
+
+3. python설치
+
+설치경로: D:\dev\python\Python27
+
+환경변수(path) : D:\dev\python\Python27;D:\dev\python\Python27\Scripts;
+
+
+
+4. python plugin설치
+
+setuptools-3.5.1 설치 : python ez_setup.py
+
+pip 설치 : easy_install pip
+
+mysql plugin 설치 : MySQL-python-1.2.5.win32-py2.7.exe
+
+
+
+5. django framework 설치
+
+pip install django
+	환경변수(path) 추가 :D:\dev\python\Python27\Scripts;D:\dev\python\Python27\Lib\site-packages\django\bin;
+
+
+
+6. pilot - Django 게시판
+
+http://jeremyko.blogspot.kr/2012/08/django-1.html
+https://github.com/jeremyko/dj_board
+
+
+프로젝트생성: django-admin.py startproject dj_board
+로컬디비 설정: dj_board/setting.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "sbm",
+        'USER': "sbmkorea",
+        'PASSWORD': "sbmkoreacom123",
+        'HOST': "localhost",
+        'PORT': "3306",
+    }
+}
+
+테이블생성: python manage.py syncdb
+app생성: python manage.py startapp sample_board
+schema확인: python manage.py sqlall sample_board
+
+dj_board/urls.py
+dj_board/settings.py
+/sample_board/view.py
+
+python manage.py runserver
+python manage.py runserver 8080
+
+
+apache 연동시: http.conf 하단에 아래내용 추가
+------------------------------------------------------------------------
+LoadModule wsgi_module modules/mod_wsgi-win32-ap22py27-3.3.so
+AddHandler wsgi-script .wsgi
+
+WSGIScriptAlias /myapp "D:/dev/python/web/myapp.py"
+
+<Directory "D:/dev/python/web">
+Order deny,allow
+Allow from all
+</Directory>
+------------------------------------------------------------------------
+
+7. plts plugin 설치
+
+south설치: south-0.8.4.tar.gz 압축풀고 설치: python setup.py install
+
+tastypie dependency설치
+
+	python-dateutil-2.2.tar.gz 압축풀고 설치: python setup.py install
+	python-mimeparse-0.1.4.tar.gz 압축풀고 설치: python setup.py install
+
+tastypie 설치 :	pip install django-tastypie
+
+http://django-tastypie.readthedocs.org/en/latest/tutorial.html
+
+
+
+8. PyDev project import
+
+from : project/workspace.egov
+
+to : plts client: D:\dev\project\workspace.egov\PLTS.CLT
+     plts server: D:\dev\project\workspace.egov\plts.sbmkorea.com
+
+
